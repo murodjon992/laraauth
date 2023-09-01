@@ -21,9 +21,10 @@
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/animate.min.css')}}">
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/rateit.css')}}">
 <link rel="stylesheet" href="{{ asset('frontend/assets/css/bootstrap-select.min.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- Icons/Glyphs -->
-<link rel="stylesheet" href="assets/css/font-awesome.css">
+<link rel="stylesheet" href="{{asset('frontend/assets/css/font-awesome.css')}}">
 
 <!-- Fonts -->
 <link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
@@ -58,5 +59,33 @@
 <script src="{{ asset('frontend/assets/js/bootstrap-select.min.js')}}"></script> 
 <script src="{{ asset('frontend/assets/js/wow.min.js')}}"></script> 
 <script src="{{ asset('frontend/assets/js/scripts.js')}}"></script>
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+	<script>
+		@if(Session::has('message'))
+		var type = "{{Session::get('alert-type','info')}}"
+		switch (type) {
+			case 'info':
+				toastr.info("{{Session::get('message')}}")
+				break;
+
+			case 'success':
+				toastr.success("{{Session::get('message')}}")
+				break;
+
+			case 'warning':
+				toastr.warning("{{Session::get('message')}}")
+				break;
+
+			case 'danger':
+				toastr.danger("{{Session::get('message')}}")
+				break;
+		
+		}
+		@endif
+	</script>
 </body>
 </html>
