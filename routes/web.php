@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Backend\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
 })->name('dashboard');
 
 
+//User yolaklari
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
@@ -49,3 +51,11 @@ Route::get('/user/profile',[IndexController::class, 'UserProfile'])->name('user.
 Route::post('/user/profile/store',[IndexController::class, 'UserProfileStore'])->name('user.profile.store');
 Route::get('/user/change/password',[IndexController::class, 'UserChangepassword'])->name('change.password');
 Route::post('/user/update/password',[IndexController::class, 'UserUpdatePassword'])->name('update.password');
+
+
+//Brand yolaklari
+
+Route::prefix('brand')->group(function(){
+    Route::get('/user/profile',[BrandController::class, 'UserProfile'])->name('user.profile');
+    
+});
