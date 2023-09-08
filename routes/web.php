@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
 use App\Http\Controllers\Backend\BrandController;
+use Laravel\Jetstream\Rules\Role;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::post('/user/update/password',[IndexController::class, 'UserUpdatePassword
 //Brand yolaklari
 
 Route::prefix('brand')->group(function(){
-    Route::get('/user/profile',[BrandController::class, 'UserProfile'])->name('user.profile');
+    Route::get('/view',[BrandController::class, 'BrandView'])->name('all.brand');
+    Route::post('/add-brand', [BrandController::class, 'BrandAdd'])->name('add.brand');
     
 });

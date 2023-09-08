@@ -311,6 +311,8 @@
 	<script src="{{asset('backend/assets/vendor_components/apexcharts-bundle/irregular-data-series.js')}}"></script>
 	<script src="{{asset('backend/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js')}}"></script>
 	
+    <script src="{{ asset('backend/assets/vendor_components/datatable/datatables.min.js')}}"></script>
+	<script src="{{ asset('backend/assets/js/pages/data-table.js')}}"></script>
 	<!-- Sunny AdApp -->
 	<script src="{{asset('backend/assets/js/template.js')}}"></script>
 	<script src="{{asset('backend/assets/js/pages/dashboard.js')}}"></script>

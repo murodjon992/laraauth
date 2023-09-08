@@ -48,7 +48,7 @@
             </a>
             <ul class="treeview-menu">
               <li><a href="chat.html"><i class="ti-more"></i>Brend qo'shish</a></li>
-              <li><a href="calendar.html"><i class="ti-more"></i>Brendlar ro'yxati</a></li>
+              <li><a href="{{route('all.brand')}}"><i class="ti-more"></i>Brendlar ro'yxati</a></li>
             </ul>
           </li> 
           {{--brand  end--}}
