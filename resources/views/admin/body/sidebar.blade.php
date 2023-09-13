@@ -1,7 +1,10 @@
+@php 
+$prefix = Request::route()->getPrefix();
+$route = Route::current()->getName();
+@endphp
 <aside class="main-sidebar">
     <!-- sidebar-->
     <section class="sidebar">	
-		
         <div class="user-profile">
 			<div class="ulogo">
 				 <a href="index.html">
@@ -12,19 +15,16 @@
 					 </div>
 				</a>
 			</div>
-        </div>
-      
+        </div>   
       <!-- sidebar menu-->
-      <ul class="sidebar-menu" data-widget="tree">  
-		  
-		<li>
+      <ul class="sidebar-menu" data-widget="tree">  	  
+		<li class="{{($route == 'dashboard') ? 'active' : ''}}">
           <a href="index.html">
             <i data-feather="pie-chart"></i>
 			<span>Dashboard</span>
           </a>
         </li>  
-		
-        <li class="treeview">
+        <li class="treeview ">
           <a href="#">
             <i data-feather="message-circle"></i>
             <span>Application</span>
@@ -38,7 +38,7 @@
           </ul>
         </li>
          {{--brand  --}}
-         <li class="treeview">
+         <li class="treeview {{($prefix == '/brand') ? 'active' : ''}}">
            <a href="#">
              <i data-feather="message-circle"></i>
              <span>Brendlar</span>
@@ -46,9 +46,9 @@
                <i class="fa fa-angle-right pull-right"></i>
               </span>
             </a>
-            <ul class="treeview-menu">
+            <ul class="treeview-menu ">
               <li><a href="chat.html"><i class="ti-more"></i>Brend qo'shish</a></li>
-              <li><a href="{{route('all.brand')}}"><i class="ti-more"></i>Brendlar ro'yxati</a></li>
+              <li class="{{($route == 'all.brand') ? 'active' : ''}}"><a href="{{route('all.brand')}}"><i class="ti-more"></i>Brendlar ro'yxati</a></li>
             </ul>
           </li> 
           {{--brand  end--}}

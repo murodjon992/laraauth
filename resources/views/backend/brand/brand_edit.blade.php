@@ -77,14 +77,14 @@
                         @csrf
                         <div class="form-group">
                             <label class="info-title" for="">Brend Ingliz nomi: </label>
-                            <input type="text" id="current_password" name="brand_name_en" class="form-control unicase-form-control text-input">
+                            <input type="text"  value="{{$brand->brand_name_en}}" name="brand_name_en" class="form-control unicase-form-control text-input">
                             @error('brand_name_en')
                             <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label class="info-title" for="">Brend O'zbek nomi: </label>
-                            <input type="text" id="current_password" name="brand_name_uz" class="form-control unicase-form-control text-input">
+                            <input type="text" id="current_password"  value="{{$brand->brand_name_uz}}" name="brand_name_uz" class="form-control unicase-form-control text-input">
                             @error('brand_name_uz')
                             <span class="text-danger">{{ $message}}</span>
                             @enderror
