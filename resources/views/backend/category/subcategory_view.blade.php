@@ -26,7 +26,7 @@
       <section class="content">
         <div class="row">
             
-          {{-- <div class="col-8">
+          <div class="col-8">
               <div class="box">
                   <div class="box-header">						
                       <h4 class="box-title">Complex headers (rowspan and colspan)</h4>
@@ -36,29 +36,25 @@
                           <table id="complex_header" class="table table-striped table-bordered display" style="width:100%">
                               <thead>
                                   <tr>
-                                      <th>№</th>
-                                      <th>Brend Rasmi</th>
-                                      <th>Brend En</th>
-                                      <th>Bren Uz</th>
+                                      <th>Id</th>
+                                      <th>Kategoriya</th>
+                                      <th>Yordamchi Kategoriya En</th>
+                                      <th>Yordamchi Kategoriya Uz</th>
                                       <th>Xarakatlar</th>
                                   </tr>
                               </thead>
                               <tbody>
-                                    @php
-                                    $raqam = 1
-                                    @endphp
-                                  @foreach($brands as $item)
+                                  @foreach($subcategory as $item)
                                   <tr>
-                                    <td>{{$raqam}}</td>
-                                    <td ><img width="200" height="80" src="{{asset($item->brand_image)}}" alt=""></td>
-                                    <td>{{ $item->brand_name_en}}</td>
-                                    <td>{{ $item->brand_name_uz}}</td>
+                                    <td>{{$item->id}}</td>
+                                    <td> <i class="{{$item->category_id}}"></i> </td>
+                                    <td>{{ $item->subcategory_name_en}}</td>
+                                    <td>{{ $item->subcategory_name_uz}}</td>
                                     <td>
-                                        <a href="{{route('brand.edit',$item->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a href="{{route('category.edit',$item->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                        <a id="delete" href="{{route('category.delete',$item->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
-                                    {{$raqam++}}
                                     @endforeach
                               </tbody>
                               
@@ -66,39 +62,38 @@
                       </div>
                   </div>
               </div>
-          </div> --}}
+          </div>
           <div class="col-4">
             <div class="box">
                 <div class="box-header">						
-                    <h4 class="box-title">Brand Qo'shish</h4>
+                    <h4 class="box-title">Kategoriya Qo'shish</h4>
                 </div>
                 <div class="box-body">
-                    <form action="{{ route('brand.update', $brand->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('category.store')}}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="text" name="id" value="{{$brand->id}}">
                         <div class="form-group">
-                            <label class="info-title" for="">Brend Ingliz nomi: </label>
-                            <input type="text"  value="{{$brand->brand_name_en}}" name="brand_name_en" class="form-control unicase-form-control text-input">
-                            @error('brand_name_en')
+                            <label class="info-title" for="">Kategoriya Ingliz nomi: </label>
+                            <input type="text"  name="category_name_en" class="form-control unicase-form-control text-input">
+                            @error('category_name_en')
                             <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="info-title" for="">Brend O'zbek nomi: </label>
-                            <input type="text" id="current_password"  value="{{$brand->brand_name_uz}}" name="brand_name_uz" class="form-control unicase-form-control text-input">
-                            @error('brand_name_uz')
+                            <label class="info-title" for="">kategoriya O'zbek nomi: </label>
+                            <input type="text"  name="category_name_uz" class="form-control unicase-form-control text-input">
+                            @error('category_name_uz')
                             <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label class="info-title" for="">Brend Rasmi: </label>
-                            <input type="file" id="current_password" name="brand_image" class="form-control unicase-form-control text-input">
-                            @error('brand_image')
+                            <label class="info-title" for="">Kategoriya ikonkasi: </label>
+                            <input type="text"  name="category_icon" class="form-control unicase-form-control text-input">
+                            @error('category_icon')
                             <span class="text-danger">{{ $message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn  btn-primary">Brend qo'shish</button>
+                            <button class="btn  btn-primary">Kategoriya qo'shish</button>
                         </div>
                     </form>
                 </div>

@@ -24,19 +24,6 @@ $route = Route::current()->getName();
 			<span>Dashboard</span>
           </a>
         </li>  
-        <li class="treeview ">
-          <a href="#">
-            <i data-feather="message-circle"></i>
-            <span>Application</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="chat.html"><i class="ti-more"></i>Chat</a></li>
-            <li><a href="calendar.html"><i class="ti-more"></i>Calendar</a></li>
-          </ul>
-        </li>
          {{--brand  --}}
          <li class="treeview {{($prefix == '/brand') ? 'active' : ''}}">
            <a href="#">
@@ -52,7 +39,35 @@ $route = Route::current()->getName();
             </ul>
           </li> 
           {{--brand  end--}}
-		  
+
+          <li class="treeview {{($prefix == '/subcategory') ? 'active' : ''}}">
+            <a href="#">
+              <i data-feather="message-circle"></i>
+              <span>Yordamchi Kategoriyalar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'add.subcategory') ? 'active' : ''}}"><a href=""><i class="ti-more"></i>Yordamchi kategoriya qo'shish</a></li>
+              <li class="{{($route == 'all.subcategory') ? 'active' : ''}}"><a href="{{route('all.subcategory')}}"><i class="ti-more"></i>Yordamchi kategoriyalar ro'yxati</a></li>
+            </ul>
+          </li>
+
+          <li class="treeview {{($prefix == '/category') ? 'active' : ''}}">
+            <a href="#">
+              <i data-feather="message-circle"></i>
+              <span>Kategoriyalar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'add.category') ? 'active' : ''}}"><a href=""><i class="ti-more"></i>Kategoriya  qo'shish</a></li>
+              <li class="{{($route == 'all.category') ? 'active' : ''}}"><a href="{{route('all.category')}}"><i class="ti-more"></i>Kategoriyalar ro'yxati</a></li>
+            </ul>
+          </li>
+          
         <li class="treeview">
           <a href="#">
             <i data-feather="mail"></i> <span>Mailbox</span>

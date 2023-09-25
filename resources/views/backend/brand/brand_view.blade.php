@@ -55,7 +55,7 @@
                                     <td>{{ $item->brand_name_uz}}</td>
                                     <td>
                                         <a href="{{route('brand.edit',$item->id)}}" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                        <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                        <a id="delete" href="{{route('brand.delete',$item->id)}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                     {{$raqam++}}
