@@ -39,21 +39,6 @@ $route = Route::current()->getName();
             </ul>
           </li> 
           {{--brand  end--}}
-
-          <li class="treeview {{($prefix == '/subcategory') ? 'active' : ''}}">
-            <a href="#">
-              <i data-feather="message-circle"></i>
-              <span>Yordamchi Kategoriyalar</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-right pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li class="{{($route == 'add.subcategory') ? 'active' : ''}}"><a href=""><i class="ti-more"></i>Yordamchi kategoriya qo'shish</a></li>
-              <li class="{{($route == 'all.subcategory') ? 'active' : ''}}"><a href="{{route('all.subcategory')}}"><i class="ti-more"></i>Yordamchi kategoriyalar ro'yxati</a></li>
-            </ul>
-          </li>
-
           <li class="treeview {{($prefix == '/category') ? 'active' : ''}}">
             <a href="#">
               <i data-feather="message-circle"></i>
@@ -63,8 +48,9 @@ $route = Route::current()->getName();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="{{($route == 'add.category') ? 'active' : ''}}"><a href=""><i class="ti-more"></i>Kategoriya  qo'shish</a></li>
               <li class="{{($route == 'all.category') ? 'active' : ''}}"><a href="{{route('all.category')}}"><i class="ti-more"></i>Kategoriyalar ro'yxati</a></li>
+              <li class="{{($route == 'all.subcategory') ? 'active' : ''}}"><a href="{{route('all.subcategory')}}"><i class="ti-more"></i>Yordamchi Kategoriya</a></li>
+              <li class="{{($route == 'all.subsubcategory') ? 'active' : ''}}"><a href="{{route('all.subsubcategory')}}"><i class="ti-more"></i>Yordamchi Ichki</a></li>
             </ul>
           </li>
           

@@ -307,49 +307,6 @@
 
     </div>
     <!-- ./wrapper -->
-
-
-    <!-- Vendor JS -->
-    <script src="{{ asset('backend/assets/js/vendors.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/icons/feather-icons/feather.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script>
-    <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
-
-    <script src="{{ asset('backend/assets/vendor_components/datatable/datatables.min.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/pages/data-table.js') }}"></script>
-    <!-- Sunny AdApp -->
-    <script src="{{ asset('backend/assets/js/template.js') }}"></script>
-    <script src="{{ asset('backend/assets/js/pages/dashboard.js') }}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
-        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script>
-        @if (Session::has('message'))
-            var type = "{{ Session::get('alert-type', 'info') }}"
-            switch (type) {
-                case 'info':
-                    toastr.info("{{ Session::get('message') }}")
-                    break;
-
-                case 'success':
-                    toastr.success("{{ Session::get('message') }}")
-                    break;
-
-                case 'warning':
-                    toastr.warning("{{ Session::get('message') }}")
-                    break;
-
-                case 'danger':
-                    toastr.danger("{{ Session::get('message') }}")
-                    break;
-
-            }
-        @endif
-    </script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script type="text/javascript">
         $(function() {
@@ -388,6 +345,46 @@
                 })
             })
         })
+    </script>
+    <!-- Vendor JS -->
+    <script src="{{ asset('backend/assets/js/vendors.min.js') }}"></script>
+    {{-- <script src="{{ asset('backend/assets/icons/feather-icons/feather.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script> --}}
+
+    {{-- <script src="{{ asset('backend/assets/vendor_components/datatable/datatables.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('backend/assets/js/pages/data-table.js') }}"></script> --}}
+    <!-- Sunny AdApp -->
+    <script src="{{ asset('backend/assets/js/template.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/pages/dashboard.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        @if (Session::has('message'))
+            var type = "{{ Session::get('alert-type', 'info') }}"
+            switch (type) {
+                case 'info':
+                    toastr.info("{{ Session::get('message') }}")
+                    break;
+
+                case 'success':
+                    toastr.success("{{ Session::get('message') }}")
+                    break;
+
+                case 'warning':
+                    toastr.warning("{{ Session::get('message') }}")
+                    break;
+
+                case 'danger':
+                    toastr.danger("{{ Session::get('message') }}")
+                    break;
+
+            }
+        @endif
     </script>
 </body>
 </html>
