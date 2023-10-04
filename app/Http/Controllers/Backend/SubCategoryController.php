@@ -84,4 +84,35 @@ class SubCategoryController extends Controller
         $subsubcategory = SubSubCategory::latest()->get();
         return view('backend.category.subsubcategory_view',compact('categories','subsubcategory'));
     }
+    public function GetSubCategoryView($category_id){
+        $subcat = SubCategory::where('category_id', $category_id)->orderBy('subcategory_name_en', 'ASC')->get();
+        return json_encode($subcat);
+    }
+    public function SubSubCategoryStore(Request $request){
+        $request->validate([
+            'subsubcategory_name_en' => 'required',
+            'subsubcategory_name_uz' => 'required',
+            'category_id' => 'required',
+            'subcategory_id' => 'required'
+        ], [
+            'subsubcategory_name_en.required' => 'Inglizcha kategoriya yozilmadi',
+            'subsubcategory_name_uz.required' => 'O`zbekcha kategoriya yozilmadi',
+            'category_id.required' => 'Kategoriya Tanlanmadi',
+            'subcategory_id.required' => 'Yordamchi Kategoriya Tanlanmadi',
+            
+        ]);
+        SubSubCategory::insert([
+            'subsubcategory_name_en' => $request->subsubcategory_name_en,
+            'subsubcategory_slug_en' => strtolower(str_replace(' ', '-', $request->subsubcategory_name_en)),
+            'subsubcategory_name_uz' => $request->subsubcategory_name_uz,
+            'subsubcategory_slug_uz' => strtolower(str_replace(' ', '-', $request->subsubcategory_name_uz)),
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+        ]);
+        $notification = array(
+            'message' => 'Yordamchi ichi  Kategoriya muvaffaqqiyatli qo`shildi',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
 }

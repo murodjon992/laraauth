@@ -84,4 +84,6 @@ Route::prefix('category')->group(function(){
     
     // yordamchi ichki kategoriya
     Route::get('/sub/sub/view',[SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
+    Route::get('/subcategory/ajax/{subcategory_id}',[SubCategoryController::class, 'GetSubCategoryView']);
+    Route::post('/sub/sub/store', [SubCategoryController::class, 'SubSubCategoryStore'])->name('subsubcategory.store');
 });
