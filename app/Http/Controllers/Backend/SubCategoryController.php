@@ -115,4 +115,48 @@ class SubCategoryController extends Controller
         );
         return redirect()->back()->with($notification);
     }
+    public function SubSubCategoryEdit($id){
+        $categories = Category::orderBy('category_name_en', 'ASC')->get();
+        $subcategories = SubCategory::orderBy('subcategory_name_en', 'ASC')->get();
+        $subsubcategories = SubSubCategory::findOrFail($id);
+        return view('backend.category.subsubcategory_edit', compact('subcategories','categories', 'subsubcategories'));
+    }
+    public function SubSubCategoryUpdate(Request $request){
+        $subsubcategory_id = $request->id;
+            $request->validate([
+                'subsubcategory_name_en' => 'required',
+                'subsubcategory_name_uz' => 'required',
+                'category_id' => 'required',
+                'subcategory_id' => 'required'
+            ], [
+                'subsubcategory_name_en.required' => 'Inglizcha kategoriya yozilmadi',
+                'subsubcategory_name_uz.required' => 'O`zbekcha kategoriya yozilmadi',
+                'category_id.required' => 'kategoriya tanlanmadi',
+                'subcategory_id.required' => 'kategoriya tanlanmadi',
+            ]);
+           
+            SubSubCategory::findOrFail($subsubcategory_id)->update([
+                'subsubcategory_name_en' => $request->subsubcategory_name_en,
+                'subsubcategory_slug_en' => strtolower(str_replace(' ', '-', $request->subsubcategory_name_en)),
+                'subsubcategory_name_uz' => $request->subsubcategory_name_uz,
+                'subsubcategory_slug_uz' => strtolower(str_replace(' ', '-', $request->subsubcategory_name_uz)),
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->subcategory_id,
+            ]);
+            $notification = array(
+                'message' => 'Ichi Kategoriya muvaffaqqiyatli yangilandi',
+                'alert-type' => 'info'
+            );
+            return redirect()->route('all.subsubcategory')->with($notification);
+    }
+    public function SubSubCategoryDelete($id){
+        $subsubcategory = SubSubCategory::findOrFail($id);
+        SubSubCategory::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Ichki Kategoriya muvaffaqqiyatli o`chirildi',
+            'alert-type' => 'danger'
+        );
+        return redirect()->route('all.subsubcategory')->with($notification);
+    }
+    
 }

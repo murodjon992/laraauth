@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="{{ asset('backend/assets/css/skin_color.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css"
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
 </head>
 
@@ -329,13 +330,13 @@
                     reverseButtons: true
                 }).then((result) => {
                     if (result.isConfirmed) {
-						window.location.href = link
+                        window.location.href = link
                         swalWithBootstrapButtons.fire(
                             'Deleted!',
                             'Your file has been deleted.',
                             'success'
                         )
-                    } else if ( result.dismiss === Swal.DismissReason.cancel) {
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
                         swalWithBootstrapButtons.fire(
                             'Cancelled',
                             'Your imaginary file is safe :)',
@@ -348,13 +349,42 @@
     </script>
     <!-- Vendor JS -->
     <script src="{{ asset('backend/assets/js/vendors.min.js') }}"></script>
-    {{-- <script src="{{ asset('backend/assets/icons/feather-icons/feather.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script> --}}
+    <script src="{{ asset('backend/assets/icons/feather-icons/feather.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/easypiechart/dist/jquery.easypiechart.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/irregular-data-series.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/apexcharts-bundle/dist/apexcharts.js') }}"></script>
 
-    {{-- <script src="{{ asset('backend/assets/vendor_components/datatable/datatables.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('backend/assets/js/pages/data-table.js') }}"></script> --}}
+    <script src="{{ asset('backend/assets/vendor_components/datatable/datatables.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/pages/data-table.js') }}"></script>
+
+    <!-- Vendor JS -->
+    <script
+        src="{{ asset('backend/assets/icons/feather-icons/feather.min.js"></script>	<script src="../assets/vendor_components/bootstrap-select/dist/js/bootstrap-select.js') }}">
+    </script>
+    <script src="{{ asset('backend/assets/vendor_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.js') }}"></script>
+    <script
+        src="{{ asset('backend/assets/vendor_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js') }}">
+    </script>
+    <script src="{{ asset('backend/assets/vendor_components/select2/dist/js/select2.full.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_plugins/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_plugins/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}">
+    </script>
+    <script
+        src="{{ asset('backend/assets/vendor_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js') }}">
+    </script>
+    <script src="{{ asset('backend/assets/vendor_plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/vendor_plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="js/pages/advanced-form-element.js"></script>
+    {{-- ck editors --}}
+    <script src="{{ asset('backend/assets/icons/feather-icons/feather.min.js')}}"></script>
+    <script src="{{ asset('backend/assets/vendor_components/ckeditor/ckeditor.js')}}"></script>
+    <script src="{{ asset('backend/assets/vendor_plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.js')}}"></script>
+    <script src="{{ asset('backend/assets/js/pages/editor.js')}}"></script>
+
     <!-- Sunny AdApp -->
     <script src="{{ asset('backend/assets/js/template.js') }}"></script>
     <script src="{{ asset('backend/assets/js/pages/dashboard.js') }}"></script>
@@ -387,4 +417,5 @@
         @endif
     </script>
 </body>
+
 </html>

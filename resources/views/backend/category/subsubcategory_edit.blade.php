@@ -24,62 +24,22 @@
         <!-- Main content -->
         <section class="content">
             <div class="row">
-
-                <div class="col-8">
-                    <div class="box">
-                        <div class="box-header">
-                            <h4 class="box-title">Complex headers (rowspan and colspan)</h4>
-                        </div>
-                        <div class="box-body">
-                            <div class="table-responsive">
-                                <table id="complex_header" class="table table-striped table-bordered display"
-                                    style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Id</th>
-                                            <th>Kategoriya En</th>
-                                            <th>Yordamchi Kategoriya En</th>
-                                            <th>Ichi Kategoriya En</th>
-                                            <th>Xarakatlar</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($subsubcategory as $item)
-                                            <tr>
-                                                <td>{{ $item->id }}</td>
-                                                <td>{{ $item['category']['category_name_en'] }}</td>
-                                                <td>{{ $item['subcategory']['subcategory_name_en'] }}</td>
-                                                <td>{{ $item->subsubcategory_name_en }}</td>
-                                                <td>
-                                                    <a href="{{ route('subsubcategory.edit', $item->id) }}"
-                                                        class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                    <a id="delete" href="{{ route('subsubcategory.delete', $item->id) }}"
-                                                        class="btn btn-danger"><i class="fa fa-trash"></i></a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-4">
                     <div class="box">
                         <div class="box-header">
-                            <h4 class="box-title">Ichki Kategoriya Qo'shish</h4>
+                            <h4 class="box-title">Ichki Kategoriya Tahrirlash</h4>
                         </div>
                         <div class="box-body">
-                            <form action="{{ route('subsubcategory.store') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('subsubcategory.update',$subsubcategories->id) }}" method="post">
                                 @csrf
+                                <input type="hidden" value="{{$subsubcategories->id}}">
                                 <div class="form-group">
                                     <h5>Turkumni tanlang</h5>
                                     <div class="controls">
                                         <select name="category_id" class="form-control" id="select">
                                             <option value="">Tanlang</option>
                                             @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}">{{ $category->category_name_en }}
+                                                <option {{$category->id == $subsubcategories->category_id ? 'selected' : ''}} value="{{ $category->id }}">{{ $category->category_name_en }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -93,7 +53,9 @@
                                     <h5>yordamchi Turkumni tanlang</h5>
                                     <div class="controls">
                                         <select name="subcategory_id" class="form-control" id="select">
-                                            <option value="" disabled>tanlang</option>
+                                            @foreach ($subcategories as $subsub)
+                                            <option {{$subsub->id == $subsubcategories->subcategory_id ? 'selected' : ''}} value="{{$subsub->id}}">{{$subsub->subcategory_name_en}}</option>
+                                            @endforeach
                                         </select>
                                         @error('subcategory_id')
                                             <span class="text-danger">{{ $message }}</span>
@@ -103,19 +65,19 @@
                                 </div>
                                 <div class="form-group">
                                     <h5>Turkum english <span class="text-danger">*</span></h5>
-                                    <input type="text" name="subsubcategory_name_en" class="form-control">
+                                    <input type="text" value="{{$subsubcategories->subsubcategory_name_en}}" name="subsubcategory_name_en" class="form-control">
                                     @error('subsubcategory_name_en')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <h5>Turkum uzbek <span class="text-danger">*</span></h5>
-                                    <input type="text" name="subsubcategory_name_uz" class="form-control">
+                                    <input type="text" value="{{$subsubcategories->subsubcategory_name_uz}}" name="subsubcategory_name_uz" class="form-control">
                                     @error('subsubcategory_name_uz')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <button class="btn btn-primary" type="submit"> qo'shish</button>
+                                <button class="btn btn-primary" type="submit"> Yangilash</button>
                             </form>
                         </div>
                     </div>

@@ -54,19 +54,20 @@ $route = Route::current()->getName();
             </ul>
           </li>
           
-        <li class="treeview">
-          <a href="#">
-            <i data-feather="mail"></i> <span>Mailbox</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-right pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="mailbox_inbox.html"><i class="ti-more"></i>Inbox</a></li>
-            <li><a href="mailbox_compose.html"><i class="ti-more"></i>Compose</a></li>
-            <li><a href="mailbox_read_mail.html"><i class="ti-more"></i>Read</a></li>
-          </ul>
-        </li>
+          <li class="treeview {{($prefix == '/product') ? 'active' : ''}}">
+            <a href="#">
+              <i data-feather="message-circle"></i>
+              <span>Mahsulotlar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'all.category') ? 'active' : ''}}"><a href="{{route('all.category')}}"><i class="ti-more"></i>Mahsulot ro'yxati</a></li>
+              <li class="{{($route == 'add-product') ? 'active' : ''}}"><a href="{{route('add-product')}}"><i class="ti-more"></i>mahsulot qo'shish</a></li>
+              <li class="{{($route == 'all.subsubcategory') ? 'active' : ''}}"><a href="{{route('all.subsubcategory')}}"><i class="ti-more"></i>Yangi mahsulot</a></li>
+            </ul>
+          </li>
 		
         <li class="treeview">
           <a href="#">
