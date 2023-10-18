@@ -85,7 +85,8 @@ Route::prefix('category')->group(function(){
     
     // yordamchi ichki kategoriya
     Route::get('/sub/sub/view',[SubCategoryController::class, 'SubSubCategoryView'])->name('all.subsubcategory');
-    Route::get('/subcategory/ajax/{subcategory_id}',[SubCategoryController::class, 'GetSubCategoryView']);
+    Route::get('/subcategory/ajax/{category_id}',[SubCategoryController::class, 'GetSubCategoryView']);
+    Route::get('/sub-subcategory/ajax/{subcategory_id}',[SubCategoryController::class, 'GetSubSubCategoryView']);
     Route::post('/sub/sub/store', [SubCategoryController::class, 'SubSubCategoryStore'])->name('subsubcategory.store');
     Route::get('/sub/sub/edit/{id}', [SubCategoryController::class, 'SubSubCategoryEdit'])->name('subsubcategory.edit');
     Route::post('/sub/sub/update/{id}', [SubCategoryController::class, 'SubSubCategoryUpdate'])->name('subsubcategory.update');
@@ -95,4 +96,5 @@ Route::prefix('category')->group(function(){
 
 Route::prefix('product')->group(function(){
     Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product');
+    Route::get('/store',[ProductController::class, 'ProductStore'])->name('product-store');
 });

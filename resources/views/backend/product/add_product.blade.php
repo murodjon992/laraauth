@@ -18,7 +18,7 @@
                         <h4 class="box-title">Yangi mahsulot</h4>
                     </div>
                     <div class="box-body">
-                        <form action="" method="post">
+                        <form action="{{route('product-store')}}" enctype="multipart/form-data" method="post">
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -26,10 +26,10 @@
                                         <div class="controls">
                                             <select name="brand_id" id="select" required class="form-control">
                                                 <option value="">Brand tanlang</option>
-                                                @foreach ($categories as $category)
+                                                @foreach ($brands as $brand)
                                                     <option
-                                                        {{ $category->id == $subcategory->category_id ? 'selected' : '' }}
-                                                        value="{{ $category->id }}">{{ $category->category_name_en }}
+                                                        
+                                                        value="{{ $brand->id }}">{{ $brand->brand_name_en }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -47,7 +47,6 @@
                                                 <option value="">Turkum tanlang</option>
                                                 @foreach ($categories as $category)
                                                     <option
-                                                        {{ $category->id == $subcategory->category_id ? 'selected' : '' }}
                                                         value="{{ $category->id }}">{{ $category->category_name_en }}
                                                     </option>
                                                 @endforeach
@@ -64,14 +63,8 @@
                                         <div class="controls">
                                             <select name="subcategory_id" id="select" required class="form-control">
                                                 <option value="">Yordamchi turkum tanlang</option>
-                                                @foreach ($categories as $category)
-                                                    <option
-                                                        {{ $category->id == $subcategory->category_id ? 'selected' : '' }}
-                                                        value="{{ $category->id }}">{{ $category->category_name_en }}
-                                                    </option>
-                                                @endforeach
                                             </select>
-                                            @error('category_id')
+                                            @error('subcategory_id')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -85,12 +78,6 @@
                                         <div class="controls">
                                             <select name="subsubcategory_id" id="select" required class="form-control">
                                                 <option value="">Ichi turkum tanlang</option>
-                                                @foreach ($categories as $category)
-                                                    <option
-                                                        {{ $category->id == $subcategory->category_id ? 'selected' : '' }}
-                                                        value="{{ $category->id }}">{{ $category->category_name_en }}
-                                                    </option>
-                                                @endforeach
                                             </select>
                                             @error('category_id')
                                                 <span class="text-danger">{{ $message }}</span>
@@ -117,44 +104,6 @@
                                             <input type="text" name="product_name_uz"
                                                 class="form-control unicase-form-control text-input">
                                             @error('product_name_uz')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <h5>Mahsulot slug (en) <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="product_slug_en"
-                                                class="form-control unicase-form-control text-input">
-                                            @error('product_slug_en')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <h5>Mahsulot slug (uz) <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="product_slug_uz"
-                                                class="form-control unicase-form-control text-input">
-                                            @error('product_slug_uz')
-                                                <span class="text-danger">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div class="form-group">
-                                        <h5>Mahsulot codi <span class="text-danger">*</span></h5>
-                                        <div class="controls">
-                                            <input type="text" name="product_code"
-                                                class="form-control unicase-form-control text-input">
-                                            @error('product_code')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -316,13 +265,11 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-
+                                        <h5>Mahsulot codi <span class="text-danger">*</span></h5>
                                         <div class="controls">
-                                            <div class="demo-checkbox">
-                                                <input name="status" type="checkbox" id="basic_checkbox_1" checked />
-                                                <label for="basic_checkbox_1">Mahsulot holati</label>
-                                            </div>
-                                            @error('status')
+                                            <input type="text" name="product_code"
+                                                class="form-control unicase-form-control text-input">
+                                            @error('product_code')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -416,4 +363,52 @@
         </form>
     </section>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script text="text/javascript">
+        $(document).ready(function() {
+            $('select[name="category_id"]').on('change', function() {
+                var category_id = $(this).val()
+                if (category_id) {
+                    $.ajax({
+                        url: "{{ url('/category/subcategory/ajax') }}/" + category_id,
+                        type: 'GET',
+                        dataType: "json",
+                        success: function(data) {
+                            var d = $('select[name="subcategory_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subcategory_id"]').append(
+                                    '<option value="' + value.id + '">' + value
+                                    .subcategory_name_en + '</option>')
+                            });
+                        },
+                    });
+                } else {
+                    alert('xato')
+                }
+            })
+        })
+        $(document).ready(function() {
+            $('select[name="subcategory_id"]').on('change', function() {
+                var subcategory_id = $(this).val()
+                if (subcategory_id) {
+                    $.ajax({
+                        url: "{{ url('/category/sub-subcategory/ajax') }}/" + subcategory_id,
+                        type: 'GET',
+                        dataType: "json",
+                        success: function(data) {
+                            var d = $('select[name="subsubcategory_id"]').empty();
+                            $.each(data, function(key, value) {
+                                $('select[name="subsubcategory_id"]').append(
+                                    '<option value="' + value.id + '">' + value
+                                    .subsubcategory_name_en + '</option>')
+                            });
+                        },
+                    });
+                } else {
+                    alert('xato')
+                }
+            })
+        })
+    </script>
+   
 @endsection
