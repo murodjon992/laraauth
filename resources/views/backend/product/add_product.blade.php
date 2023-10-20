@@ -18,7 +18,8 @@
                         <h4 class="box-title">Yangi mahsulot</h4>
                     </div>
                     <div class="box-body">
-                        <form action="{{route('product-store')}}" enctype="multipart/form-data" method="post">
+                        <form action="{{ route('product-store') }}" enctype="multipart/form-data" method="post">
+                            @csrf
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -27,9 +28,7 @@
                                             <select name="brand_id" id="select" required class="form-control">
                                                 <option value="">Brand tanlang</option>
                                                 @foreach ($brands as $brand)
-                                                    <option
-                                                        
-                                                        value="{{ $brand->id }}">{{ $brand->brand_name_en }}
+                                                    <option value="{{ $brand->id }}">{{ $brand->brand_name_en }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -46,8 +45,7 @@
                                             <select name="category_id" id="select" required class="form-control">
                                                 <option value="">Turkum tanlang</option>
                                                 @foreach ($categories as $category)
-                                                    <option
-                                                        value="{{ $category->id }}">{{ $category->category_name_en }}
+                                                    <option value="{{ $category->id }}">{{ $category->category_name_en }}
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -238,10 +236,12 @@
                                         <h5>Mahsulot rasmi <span class="text-danger">*</span></h5>
                                         <div class="controls">
                                             <div class="custom-file">
-                                                <input name="product_thambnail" type="file" class="custom-file-input"
-                                                    id="customFile">
+                                                <input name="product_thambnail" type="file"
+                                                    onchange="mainThamUrl(this)" class="custom-file-input"
+                                                    id="">
                                                 <label class="custom-file-label" for="customFile">rasm tanlang</label>
                                             </div>
+                                            <img class="mt-2" id="mainThmb" src="" alt="">
                                             @error('product_thambnail')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
@@ -253,11 +253,14 @@
                                         <h5>Xarxil rasmlar <span class="text-danger">*</span></h5>
                                         <div class="controls">
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="multi_img[]"
-                                                    id="customFile">
+                                                <input type="file" class="custom-file-input" multiple
+                                                    name="multi_img[]" id="multiImg">
                                                 <label class="custom-file-label" for="customFile">rasmlar tanlang</label>
                                             </div>
-                                            @error('multi_img')
+                                            <div class="row mt-2" id="preview_img">
+
+                                            </div>
+                                            @error('multi_img[]')
                                                 <span class="text-danger">{{ $message }}</span>
                                             @enderror
                                         </div>
@@ -302,31 +305,31 @@
         <div class="row">
             <div class="col-6">
                 <h5>To'liq izoh (en) <span class="text-danger">*</span></h5>
-               
-                    <textarea id="editor1" name="long_descp_en" rows="10" cols="80">
+
+                <textarea id="editor1" name="long_descp_en" rows="10" cols="80">
                                             This is my textarea to be replaced with CKEditor.
                     </textarea>
-                    @error('long_descp_en')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-               
+                @error('long_descp_en')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+
             </div>
             <div class="col-6">
                 <h5>To'liq izoh (uz) <span class="text-danger">*</span></h5>
-                    <textarea id="editor2" name="long_descp_uz" rows="10" cols="80">
+                <textarea id="editor2" name="long_descp_uz" rows="10" cols="80">
                                             This is my textarea to be replaced with CKEditor.
                     </textarea>
-                    @error('long_descp_uz')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-               
+                @error('long_descp_uz')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-3">
                 <div class="form-group">
                     <div class="demo-checkbox">
-                        <input name="hot_deal" type="checkbox" id="basic_checkbox_2" checked />
+                        <input name="hot_deal" type="checkbox" id="basic_checkbox_2" value="1" />
                         <label for="basic_checkbox_2">Qaynoq bitim</label>
                     </div>
                 </div>
@@ -334,7 +337,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <div class="demo-checkbox">
-                        <input name="special_offer" type="checkbox" id="basic_checkbox_3" checked />
+                        <input name="special_offer" type="checkbox" id="basic_checkbox_3" value="1" />
                         <label for="basic_checkbox_3">Maxsus takliflar</label>
                     </div>
                 </div>
@@ -342,7 +345,7 @@
             <div class="col-3">
                 <div class="form-group">
                     <div class="demo-checkbox">
-                        <input type="checkbox" name="special_deal" id="basic_checkbox_4" checked />
+                        <input type="checkbox" name="special_deal" id="basic_checkbox_4" value="1"/>
                         <label for="basic_checkbox_4">Maxsus bitim</label>
                     </div>
                 </div>
@@ -351,7 +354,7 @@
                 <div class="form-group">
 
                     <div class="demo-checkbox">
-                        <input name="featured" type="checkbox" id="basic_checkbox_5" checked />
+                        <input name="featured" type="checkbox" id="basic_checkbox_5" value="1"/>
                         <label for="basic_checkbox_5">Xususiyat</label>
                     </div>
                 </div>
@@ -410,5 +413,39 @@
             })
         })
     </script>
-   
+    <script type="text/javascript">
+        function mainThamUrl(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#mainThmb').attr('src', e.target.result).width(100).height(100)
+                }
+                reader.readAsDataURL(input.files[0])
+                console.log(reader);
+            }
+        }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#multiImg').on('change', function() {
+                if (window.File && window.FileReader && window.FileList && window.Blob) {
+                    var data = $(this)[0].files
+                    $.each(data, function(index, file) {
+                        if (/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)) {
+                            var fread = new FileReader();
+                            fread.onload = (function(file) {
+                                                    return function(e) {
+                                                        var img = $('<img />').addClass('mr-1').attr('src', e
+                                                            .target.result).width(70).height(70)
+                                                        $('#preview_img').append(img)
+                                                    }
+                            })(file);
+                            fread.readAsDataURL(file)
+                        }
+                    })
+
+                }
+            })
+        })
+    </script>
 @endsection
