@@ -75,7 +75,17 @@ class ProductController extends Controller
                 return redirect()->back()->with($notification);
 
             }
-
-
+    }
+    public function ManageProduct(){
+        $products = Product::latest()->get();
+        return view('backend.product.product_view', compact('products'));
+    }
+    public function ProductInactive($id){
+        Product::findOrFail($id)->update(['status' => 0]);
+        $notification = [
+                    'message' => 'mahsulot tugadi',
+                    'alert-type' => 'info'
+                ];
+                return redirect()->back()->with($notification);
     }
 }

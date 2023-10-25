@@ -97,4 +97,7 @@ Route::prefix('category')->group(function(){
 Route::prefix('product')->group(function(){
     Route::get('/add',[ProductController::class, 'AddProduct'])->name('add-product');
     Route::post('/store',[ProductController::class, 'ProductStore'])->name('product-store');
+    Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage-product');
+    Route::get('/inactive/{id}',[ProductController::class, 'ProductInactive'])->name('product.inactive');
+    Route::get('/active/{id}',[ProductController::class, 'ProductActive'])->name('product.active');
 });
