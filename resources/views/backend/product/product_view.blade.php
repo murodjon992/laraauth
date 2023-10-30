@@ -64,7 +64,7 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('subcategory.edit', $item->id) }}"
+                                                    <a href="{{ route('edit-product', $item->id) }}"
                                                         class="btn btn-success"><i class="fa fa-edit"></i></a>
                                                     <a id="delete" href="{{ route('subcategory.delete', $item->id) }}"
                                                         class="btn btn-danger"><i class="fa fa-trash"></i></a>

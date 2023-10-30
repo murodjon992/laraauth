@@ -88,4 +88,20 @@ class ProductController extends Controller
                 ];
                 return redirect()->back()->with($notification);
     }
+    public function ProductActive($id){
+        Product::findOrFail($id)->update(['status' => 1]);
+        $notification = [
+                    'message' => 'mahsulot mavjud',
+                    'alert-type' => 'info'
+                ];
+                return redirect()->back()->with($notification);
+    }
+    public function EditProduct($id){
+        $categories = Category::latest()->get();
+        $subcategories = SubCategory::latest()->get();
+        $subsubcategories = SubSubCategory::latest()->get();
+        $brands = Brand::latest()->get();
+        $products = Product::findOrFail($id);
+        return view('backend.product.product_edit', compact('categories','subcategories','subsubcategories','brands','products'));
+    }
 }
