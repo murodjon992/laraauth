@@ -97,11 +97,101 @@ class ProductController extends Controller
                 return redirect()->back()->with($notification);
     }
     public function EditProduct($id){
+        $multiImgs = MultiImg::where('product_id',$id)->get();
         $categories = Category::latest()->get();
         $subcategories = SubCategory::latest()->get();
         $subsubcategories = SubSubCategory::latest()->get();
         $brands = Brand::latest()->get();
         $products = Product::findOrFail($id);
-        return view('backend.product.product_edit', compact('categories','subcategories','subsubcategories','brands','products'));
+        return view('backend.product.product_edit', compact('categories','subcategories','subsubcategories','brands','products','multiImgs'));
+    }
+    public function ProductUpdate(Request $request){
+        $product_id = $request->id;
+        Product::findOrFail($product_id)->update([
+            'brand_id' => $request->brand_id,
+            'category_id' => $request->category_id,
+            'subcategory_id' => $request->subcategory_id,
+            'subsubcategory_id' => $request->subsubcategory_id,
+            'product_name_en' => $request->product_name_en,
+            'product_name_uz' => $request->product_name_uz,
+            'product_slug_en' => strtolower(str_replace(' ','-', $request->product_name_en)),
+            'product_slug_uz' => strtolower(str_replace(' ','-', $request->product_name_uz)),
+            'product_code' => $request->product_code,
+            'product_qty' => $request->product_qty,
+            'product_tags_en' => $request->product_tags_en,
+            'product_tags_uz' => $request->product_tags_uz,
+            'product_size_en' => $request->product_size_en,
+            'product_size_uz' => $request->product_size_uz,
+            'product_color_en' => $request->product_color_en,
+            'product_color_uz' => $request->product_color_uz,
+            'selling_price' => $request->selling_price,
+            'discount_price' => $request->discount_price,
+            'short_descp_en' => $request->short_descp_en,
+            'short_descp_uz' => $request->short_descp_uz,
+            'long_descp_en' => $request->long_descp_en,
+            'long_descp_uz' => $request->long_descp_uz,
+            'hot_deals' => $request->hot_deals,
+            'featured' => $request->featured,
+            'special_offer' => $request->special_offer,
+            'special_deals' => $request->special_deals,
+            'status' => 1,
+            'created_at' => Carbon::now()
+        ]);
+        $notification = array(
+            'message'=> 'Mahsulot rasmsiz yangilandi',
+            'alert-type'=> 'info',
+        );
+        return redirect()->route('manage-product')->with($notification);
+
+    }
+    public function MultiImageUpdate(Request $request){
+        $imgs = $request->multi_img;
+
+        foreach($imgs as $id => $img){
+            $imfDel = MultiImg::findOrFail($id);
+        //    unlink($imfDel->photo_name);
+            
+            $name_gen = hexdec(uniqid()).'.'.$img->getClientOriginalExtension();
+            Image::make($img)->resize(917,1000)->save('upload/products/multi-img/'.$name_gen);
+            $uploadPath = 'upload/products/multi-img/'. $name_gen;
+            
+            MultiImg::where('id',$id)->update([
+                'photo_name'=> $uploadPath,
+                'updated_at' => Carbon::now(),
+
+            ]);
+        }
+        $notification = array(
+            'message' => 'Mahsulot rasmi yangilandi',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('manage-product')->with($notification);
+
+    }
+    public function MultiImageDelete($id){
+        $oldImg = MultiImg::findOrFail($id);
+        unlink($oldImg->photo_name);
+        MultiImg::findOrFail($id)->delete();
+        $notification = array(
+            'message' => 'Mahsulot rasmi o`chirildi',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+    }
+    public function DeleteProduct($id) {
+        $product = Product::findOrFail($id);
+        // unlink($product->product_thambnail);
+        Product::findOrFail($id)->delete();
+        $images = MultiImg::where('product_id', $id)->get();
+        foreach($images as $img){
+            unlink($img->photo_name);
+            MultiImg::where('product_id', $id)->delete();
+        }
+        $notification = array(
+            'message' => 'Mahsulot o`chirildi',
+            'alert-type' => 'success'
+        );
+        return redirect()->back()->with($notification);
+
     }
 }

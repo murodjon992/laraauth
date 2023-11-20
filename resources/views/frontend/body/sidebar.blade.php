@@ -5,7 +5,7 @@
       <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>
       <nav class="yamm megamenu-horizontal">
         <ul class="nav">
-          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>Clothing</a>
+          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>Clothing,m,</a>
             <ul class="dropdown-menu mega-menu">
               <li class="yamm-content">
                 <div class="row">
@@ -69,7 +69,7 @@
             <!-- /.dropdown-menu --> </li>
           <!-- /.menu-item -->
           
-          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-laptop" aria-hidden="true"></i>Electronics</a> 
+          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-laptop" aria-hidden="true"></i>Electronicsghhg</a> 
             <!-- ================================== MEGAMENU VERTICAL ================================== -->
             <ul class="dropdown-menu mega-menu">
               <li class="yamm-content">
@@ -112,7 +112,7 @@
             <!-- ================================== MEGAMENU VERTICAL ================================== --> </li>
           <!-- /.menu-item -->
           
-          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paw" aria-hidden="true"></i>Shoes</a>
+          <li class="dropdown menu-item"> <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-paw" aria-hidden="true"></i>Shoeshghgh</a>
             <ul class="dropdown-menu mega-menu">
               <li class="yamm-content">
                 <div class="row">

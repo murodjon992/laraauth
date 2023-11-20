@@ -4,8 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\AdminProfileController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Frontend\LanguageController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\ProductController;
+use App\Http\Controllers\Backend\SliderController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use Laravel\Jetstream\Rules\Role;
@@ -30,6 +32,7 @@ Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function(){
 	Route::post('/login', [AdminController::class, 'store'])->name('admin.login');
 });
 
+Route::middleware(['auth:admin'])->group(function(){
 //Admin yolaklari
 Route::get('admin/logout', [AdminController::class, 'destroy'])->name('admin.logout');
 Route::get('admin/profile', [AdminProfileController::class, 'AdminProfile'])->name('admin.profile');
@@ -42,7 +45,7 @@ Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', f
     return view('admin.index');
 })->name('dashboard');
 
-
+});
 //User yolaklari
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
@@ -55,6 +58,7 @@ Route::get('/user/profile',[IndexController::class, 'UserProfile'])->name('user.
 Route::post('/user/profile/store',[IndexController::class, 'UserProfileStore'])->name('user.profile.store');
 Route::get('/user/change/password',[IndexController::class, 'UserChangepassword'])->name('change.password');
 Route::post('/user/update/password',[IndexController::class, 'UserUpdatePassword'])->name('update.password');
+Route::get('/product/detail/{id}',[IndexController::class, 'ProductDetail'])->name('product_detail');
 
 
 //Brand yolaklari
@@ -99,6 +103,25 @@ Route::prefix('product')->group(function(){
     Route::post('/store',[ProductController::class, 'ProductStore'])->name('product-store');
     Route::get('/manage',[ProductController::class, 'ManageProduct'])->name('manage-product');
     Route::get('/inactive/{id}',[ProductController::class, 'ProductInactive'])->name('product.inactive');
+    Route::post('/update', [ProductController::class, 'ProductUpdate'])->name('product-update');
+    Route::post('/image/update', [ProductController::class, 'MultiImageUpdate'])->name('update-product-image');
+    Route::get('/image/delete/{id}', [ProductController::class, 'MultiImageDelete'])->name('product-multiImg-delete');
     Route::get('/active/{id}',[ProductController::class, 'ProductActive'])->name('product.active');
     Route::get('/edit/{id}',[ProductController::class, 'EditProduct'])->name('edit-product');
+    Route::get('/delete/{id}',[ProductController::class, 'DeleteProduct'])->name('delete-product');
 });
+
+//Slider yolaklari
+
+Route::prefix('slider')->group(function(){
+    Route::get('/view',[SliderController::class, 'ViewSlider'])->name('manage-slider');
+    Route::post('/add',[SliderController::class, 'AddSlider'])->name('add-slider');
+    Route::get('/active/{id}',[SliderController::class, 'SliderActive'])->name('slider.active');
+    Route::get('/inactive/{id}',[SliderController::class, 'SliderInactive'])->name('slider.inactive');
+    Route::get('/edit/{id}',[SliderController::class, 'SliderEdit'])->name('slider-edit');
+    Route::get('/delete/{id}',[SliderController::class, 'SliderDelete'])->name('slider-delete');
+    Route::post('/update',[SliderController::class, 'SliderUpdate'])->name('slider-update');
+});
+// Xar xil til
+Route::get('/language/uzbek',[LanguageController::class, 'Uzbek'])->name('uzbek.language');
+Route::get('/language/english',[LanguageController::class, 'English'])->name('english.language');

@@ -18,8 +18,9 @@
                         <h4 class="box-title">Mahsulotni tahrirlash</h4>
                     </div>
                     <div class="box-body">
-                        <form action="{{ route('product-store') }}" enctype="multipart/form-data" method="post">
+                        <form action="{{ route('product-update') }}" enctype="multipart/form-data" method="post">
                             @csrf
+                            <input type="hidden" name="id" id="" value="{{$products->id}}">
                             <div class="row">
                                 <div class="col-4">
                                     <div class="form-group">
@@ -301,69 +302,104 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5>To'liq izoh (en) <span class="text-danger">*</span></h5>
+                                
+                                    <textarea id="editor1" name="long_descp_en" rows="10" cols="80">{{$products->long_descp_en}}</textarea>
+                                    @error('long_descp_en')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                
+                                </div>
+                                <div class="col-6">
+                                    <h5>To'liq izoh (uz) <span class="text-danger">*</span></h5>
+                                    <textarea id="editor2" name="long_descp_uz" rows="10" cols="80">{{$products->long_descp_uz}}</textarea>
+                                    @error('long_descp_uz')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="demo-checkbox">
+                                            <input name="hot_deals" {{ $products->hot_deals == 1 ? 'checked' : '' }} type="checkbox" id="basic_checkbox_2" value="1" />
+                                            <label for="basic_checkbox_2">Qaynoq bitim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="demo-checkbox">
+                                            <input name="special_offer" {{ $products->special_offer == 1 ? 'checked' : '' }} type="checkbox" id="basic_checkbox_3" value="1" />
+                                            <label for="basic_checkbox_3">Maxsus takliflar</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <div class="demo-checkbox">
+                                            <input type="checkbox" name="special_deals" {{ $products->special_deals == 1 ? 'checked' : '' }} id="basic_checkbox_4" value="1"/>
+                                            <label for="basic_checkbox_4">Maxsus bitim</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+
+                                        <div class="demo-checkbox">
+                                            <input name="featured" type="checkbox" {{ $products->featured == 1 ? 'checked' : '' }} id="basic_checkbox_5" value="1"/>
+                                            <label for="basic_checkbox_5">Xususiyat</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <button class="btn btn-success">Mahsulot yangilash</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
         </div>
+    </section>
+    <section class="content">
         <div class="row">
-            <div class="col-6">
-                <h5>To'liq izoh (en) <span class="text-danger">*</span></h5>
-
-                <textarea id="editor1" name="long_descp_en" rows="10" cols="80">{{$products->long_descp_en}}</textarea>
-                @error('long_descp_en')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-
-            </div>
-            <div class="col-6">
-                <h5>To'liq izoh (uz) <span class="text-danger">*</span></h5>
-                <textarea id="editor2" name="long_descp_uz" rows="10" cols="80">{{$products->long_descp_uz}}</textarea>
-                @error('long_descp_uz')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
-
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-3">
-                <div class="form-group">
-                    <div class="demo-checkbox">
-                        <input name="hot_deal" type="checkbox" id="basic_checkbox_2" value="1" />
-                        <label for="basic_checkbox_2">Qaynoq bitim</label>
+            <div class="col-md-8">
+                <div class="box bt-3 border-info">
+                    <div class="box-header">
+                        <h4 class="box-title">Mahsulot rasmlarini <strong> yangilash</strong></h4>
                     </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <div class="demo-checkbox">
-                        <input name="special_offer" type="checkbox" id="basic_checkbox_3" value="1" />
-                        <label for="basic_checkbox_3">Maxsus takliflar</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
-                    <div class="demo-checkbox">
-                        <input type="checkbox" name="special_deal" id="basic_checkbox_4" value="1"/>
-                        <label for="basic_checkbox_4">Maxsus bitim</label>
-                    </div>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="form-group">
+                    <div class="box-body">
+                    <form action="{{route('update-product-image')}}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="row row-sm">
+                            @foreach ($multiImgs as $img)
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <img src="{{asset($img->photo_name)}}" alt="" class="card-img-top img-responsive">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <a href="{{ route('product-multiImg-delete',$img->id) }}" class="btn btn-danger" id="delete" title="Delete data"><i class="fa fa-trash"></i></a></h5>
+                                        <p class="card-text">
 
-                    <div class="demo-checkbox">
-                        <input name="featured" type="checkbox" id="basic_checkbox_5" value="1"/>
-                        <label for="basic_checkbox_5">Xususiyat</label>
+                                            <p class="text-light">Rasm Almashtirish</p>
+                                            <input class="form-control" name="multi_img[{{$img->id}}]"  onChange="mainThamUrlPastki(this)" type="file"/>
+                                            <img id="mainThm" src="" alt="">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <button class="btn btn-rounded btn-primary" type="submit">Rasm yangilash</button>
+                    </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <button class="btn btn-success">Mahsulot qo'shish</button>
-        </div>
-        </form>
     </section>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -422,6 +458,15 @@
                 }
                 reader.readAsDataURL(input.files[0])
                 console.log(reader);
+            }
+        }
+        function mainThamUrlPastki(input){
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e){
+                    $('#mainThm').attr('src', e.target.result).width(80).height(80)
+                };
+                reader.readAsDataURL(input.files[0])
             }
         }
     </script>

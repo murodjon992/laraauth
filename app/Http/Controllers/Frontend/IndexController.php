@@ -6,12 +6,26 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Slider;
+use App\Models\Product;
+use App\Models\MultiImg;;
+use App\Models\Category;
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
 {
     public function index(){
-        return view('frontend.index');
+        $products = Product::where('status', 1)->orderBy('id','DESC')->get();
+        $sliders = Slider::where('status', 1)->orderBy('id','DESC')->limit(3)->get();
+        $categories = Category::orderBy('category_name_en','ASC')->get();
+        $featureds = Product::where('featured', 1)->orderBy('id','DESC')->limit(6)->get();
+        $hot_deals = Product::where('hot_deals', 1)->orderBy('id','DESC')->limit(3)->get();
+        return view('frontend.index', compact('products', 'sliders', 'categories','featureds','hot_deals'));
+    }
+    public function ProductDetail($id){
+        $product = Product::findOrFail($id);
+        $multi_img = MultiImg::where('product_id', $id)->orderBy('id','DESC')->get();
+        return view('frontend.product.product_detail', compact('product','multi_img'));
     }
     public function UserLogout(){
         Auth::logout();

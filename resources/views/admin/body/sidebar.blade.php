@@ -63,12 +63,24 @@ $route = Route::current()->getName();
               </span>
             </a>
             <ul class="treeview-menu">
-              <li class="{{($route == 'all.category') ? 'active' : ''}}"><a href="{{route('all.category')}}"><i class="ti-more"></i>Mahsulot ro'yxati</a></li>
+              <li class="{{($route == 'all.category') ? 'active' : ''}}"><a href="{{route('manage-product')}}"><i class="ti-more"></i>Mahsulot ro'yxati</a></li>
               <li class="{{($route == 'add-product') ? 'active' : ''}}"><a href="{{route('add-product')}}"><i class="ti-more"></i>mahsulot qo'shish</a></li>
               <li class="{{($route == 'all.subsubcategory') ? 'active' : ''}}"><a href="{{route('all.subsubcategory')}}"><i class="ti-more"></i>Yangi mahsulot</a></li>
             </ul>
           </li>
-		
+          <li class="treeview {{($prefix == '/slider') ? 'active' : ''}}">
+            <a href="#">
+              <i data-feather="message-circle"></i>
+              <span>Sliderlar</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-right pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="{{($route == 'manage-slider') ? 'active' : ''}}"><a href="{{route('manage-slider')}}"><i class="ti-more"></i>Slider ro'yxati</a></li>
+              <li class="{{($route == 'add-slider') ? 'active' : ''}}"><a href="{{route('add-slider')}}"><i class="ti-more"></i>Slider qo'shish</a></li>
+            </ul>
+          </li>
         <li class="treeview">
           <a href="#">
             <i data-feather="file"></i>

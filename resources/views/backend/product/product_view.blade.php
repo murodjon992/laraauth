@@ -66,7 +66,7 @@
                                                 <td>
                                                     <a href="{{ route('edit-product', $item->id) }}"
                                                         class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                                    <a id="delete" href="{{ route('subcategory.delete', $item->id) }}"
+                                                    <a id="delete" href="{{ route('delete-product', $item->id) }}"
                                                         class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                     @if ($item->status == 1)
                                                         <a id="delete" href="{{ route('product.inactive', $item->id) }}"
