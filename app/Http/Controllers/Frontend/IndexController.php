@@ -20,7 +20,18 @@ class IndexController extends Controller
         $categories = Category::orderBy('category_name_en','ASC')->get();
         $featureds = Product::where('featured', 1)->orderBy('id','DESC')->limit(6)->get();
         $hot_deals = Product::where('hot_deals', 1)->orderBy('id','DESC')->limit(3)->get();
-        return view('frontend.index', compact('products', 'sliders', 'categories','featureds','hot_deals'));
+        $special_offer = Product::where('special_offer', 1)->orderBy('id','DESC')->get();
+        $special_deal = Product::where('special_deals', 1)->orderBy('id','DESC')->get();
+        $product_tags = Product::orderBy('product_tags_en','ASC')->get();
+        $skip_category_0 = Category::skip(0)->first();
+        $skip_product_0 = Product::where('status', 1)->where('category_id', $skip_category_0->id)->orderBy('id', 'DESC')->get();
+
+        $skip_category_1 = Category::skip(1)->first();
+        $skip_product_1 = Product::where('status', 1)->where('category_id', $skip_category_0->id)->orderBy('id', 'DESC')->get();
+
+        $skip_category_2 = Category::skip(2)->first();
+        $skip_product_2 = Product::where('status', 1)->where('category_id', $skip_category_0->id)->orderBy('id', 'DESC')->get();
+        return view('frontend.index', compact('products', 'sliders', 'categories','featureds','hot_deals','special_offer','special_deal','skip_category_0','skip_product_0','skip_category_1','skip_product_1','product_tags'));
     }
     public function ProductDetail($id){
         $product = Product::findOrFail($id);
